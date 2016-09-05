@@ -6,13 +6,9 @@ package synchronize;
  * @date 2016/08/31
  *
  */
-public class SimpleTicketSystemDemo2 {
+public class TicketSystemInSynchronized {
 	public static void main(String[] args) {
-		
-//		// 方式1 ：前提－每个线程执行的代码完全一样   可以－使用同一个Runnable 对象， 
-//		MyTicketThreadInRunnable myRunnable = new MyTicketThreadInRunnable("wang");
-//		new Thread(myRunnable).start();
-//		new Thread(myRunnable).start();
+		// 方法1 ：如Thread/demo1 中所示，当传入同一个Runnable实例的时候，可以共享对象。
 		
 		// 方式2 ：前提－当每个线程执行的代码不一样的时候 可以－将共享数据封装到一个对象中，然后传递给不同的Runnable对象。
 		Ticket s = new Ticket(10);
@@ -50,19 +46,19 @@ class TicketSeller implements Runnable{
 	public void run() {
 		while (s.getNum() > 0) {
 			
-			s.buy(name);
+			s.sell(name);
 			
-//			try {
-//				Thread.sleep(2);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
+			try {
+				Thread.sleep(2);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}	
 }
 
 class Ticket {
-	volatile private int num;
+	private int num;
 	Ticket (int num) {
 		this.num = num;
 	}
@@ -73,32 +69,23 @@ class Ticket {
 		this.num = num;
 	}
 	
-//	// 没有任何同步措施
-//	public void buy (String name) {
+	// 没有任何同步措施
+//	public void sell (String name) {
 //			System.out.println(name + " sell " + num);
 //			this.num--;
 //	}
 	
 //	// 利用 synchronized 进行同步
-//	public synchronized void buy (String name) {
+//	public synchronized void sell (String name) {
 //		System.out.println(name + " sell " + num);
 //		this.num--;
 //	}
 	
-//	// 修复隐藏bug
-//	public synchronized void buy (String name) {
-//		if (num > 0) {
-//			System.out.println(name + " sell " + num);
-//			this.num--;
-//		}
-//	}
-	
 	// 修复隐藏bug
-	public void buy (String name) {
-		if (num > 0) {
+	public synchronized void sell (String name) {
+		if (name != null && num > 0) {
 			System.out.println(name + " sell " + num);
 			this.num--;
 		}
 	}
-	
 }
