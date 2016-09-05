@@ -1,4 +1,4 @@
-package Simple;
+package Thread;
 
 /**
  * simple ticket system , the aim is to learn how to use thread

@@ -1,9 +1,9 @@
-package Simple;
+package Thread;
 
-class MyTicketThread extends Thread{
-	private int num = 5;
+class MyTicketThreadInRunnable implements Runnable{
 	private String name;
-	MyTicketThread(String name) {
+	private int num = 5;
+	MyTicketThreadInRunnable (String name) {
 		this.name = name;
 	}
 	@Override
