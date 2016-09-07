@@ -27,6 +27,8 @@ public class TicketSystemInSynchronized {
 		 * 		＊ 工作内存 ：保存共享变量数据副本
 		 *    一般线程对于共享变量的操作必须在工作内存中操作，具体流程就是：线程1从主内存中读取X到工作内存（缓存）
 		 *    －> 线程修改X的值 －> 将X写入主内存 －>线程2读取
+		 * 3. synchronized 字段详解
+		 * 		锁－java内置锁（包括synchronize 和 ReentrantLock）都是可重入的。
 		 * 
 		 */
 		
